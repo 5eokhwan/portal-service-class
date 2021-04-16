@@ -1,17 +1,24 @@
 package kr.ac.jejunu;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
+@Component
 public class UserDao {
-    private final JdbcTemplate jdbcTemplate;
 
-    public UserDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+//    public UserDao(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public User findById(Integer id) throws SQLException {
         //데이터 어딨어? => mysql
@@ -46,6 +53,7 @@ public class UserDao {
             return preparedStatement;
         }, keyHolder);
         user.setId(keyHolder.getKey().intValue());
+
     }
 
     public void update(User user) throws SQLException {
@@ -53,6 +61,7 @@ public class UserDao {
         String sql = "update userinfo set name = ?, password = ? where id = ?";
         Object[] params = new Object[]{user.getName(), user.getPassword(), user.getId()};
         jdbcTemplate.update(sql, params);
+
     }
 
     public void delete(Integer id) throws SQLException {
@@ -60,5 +69,8 @@ public class UserDao {
         String sql = "delete from userinfo where id = ?";
         Object[] params = new Object[]{id};
         jdbcTemplate.update(sql, params);
+
     }
+
+
 }

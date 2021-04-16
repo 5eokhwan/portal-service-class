@@ -11,7 +11,7 @@ public class HallaConnectionMaker implements ConnectionMaker {
         return DriverManager.getConnection(
                 "jdbc:mysql://localhost/kakao_track?" +
                         "characterEncoding=utf-8&serverTimezone=UTC"
-                , "root", "pw"
+                , "root", "sshh1013"
         );
     }
 }
