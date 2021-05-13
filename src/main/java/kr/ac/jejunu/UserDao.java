@@ -1,26 +1,24 @@
 package kr.ac.jejunu;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
+@RequiredArgsConstructor
 public class UserDao {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-//    public UserDao(JdbcTemplate jdbcTemplate) {
-//        this.jdbcTemplate = jdbcTemplate;
-//    }
-
-    public User findById(Integer id) throws SQLException {
+    public User findById(Integer id) {
         //데이터 어딨어? => mysql
         String sql = "select * from  userinfo where id = ?";
         Object[] params = new Object[]{id};
@@ -37,7 +35,7 @@ public class UserDao {
     }
 
 
-    public void insert(User user) throws SQLException {
+    public void insert(User user) {
         //데이터 어딨어? => mysql
         String sql = "insert into userinfo (name, password) values ( ?, ? )";
         Object[] params = new Object[]{user.getName(), user.getPassword()};
@@ -56,7 +54,7 @@ public class UserDao {
 
     }
 
-    public void update(User user) throws SQLException {
+    public void update(User user) {
         //데이터 어딨어? => mysql
         String sql = "update userinfo set name = ?, password = ? where id = ?";
         Object[] params = new Object[]{user.getName(), user.getPassword(), user.getId()};
@@ -64,13 +62,11 @@ public class UserDao {
 
     }
 
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) {
         //데이터 어딨어? => mysql
         String sql = "delete from userinfo where id = ?";
         Object[] params = new Object[]{id};
         jdbcTemplate.update(sql, params);
 
     }
-
-
 }
