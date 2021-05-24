@@ -12,7 +12,7 @@ import java.sql.Driver;
 @Configuration
 public class DaoFactory {
 
-    @Value("${db.driver}")
+    @Value("${db.classname}")
     private String className;
     @Value("${db.username}")
     private String username;
@@ -35,10 +35,6 @@ public class DaoFactory {
     public DataSource dataSource() throws ClassNotFoundException {
         SimpleDriverDataSource dataSource =
                 new SimpleDriverDataSource();
-//        className = "com.mysql.cj.jdbc.Driver";
-//        password = "sshh1013";
-//        username = "root";
-//        url = "jdbc:mysql://localhost/kakao_track?characterEncoding=utf-8&serverTimezone=UTC";
         dataSource.setDriverClass((Class<? extends Driver>) Class.forName(className));
         dataSource.setUsername(username);
         dataSource.setPassword(password);

@@ -1,3 +1,4 @@
+
 package kr.ac.jejunu;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class UserDao {
     private final JdbcTemplate jdbcTemplate;
 
     public User findById(Integer id) {
+        //데이터 어딨어? => mysql
         String sql = "select * from  userinfo where id = ?";
         Object[] params = new Object[]{id};
         return jdbcTemplate.query(sql, rs -> {
@@ -35,6 +37,7 @@ public class UserDao {
 
 
     public void insert(User user) {
+        //데이터 어딨어? => mysql
         String sql = "insert into userinfo (name, password) values ( ?, ? )";
         Object[] params = new Object[]{user.getName(), user.getPassword()};
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,6 +56,7 @@ public class UserDao {
     }
 
     public void update(User user) {
+        //데이터 어딨어? => mysql
         String sql = "update userinfo set name = ?, password = ? where id = ?";
         Object[] params = new Object[]{user.getName(), user.getPassword(), user.getId()};
         jdbcTemplate.update(sql, params);
@@ -60,9 +64,12 @@ public class UserDao {
     }
 
     public void delete(Integer id) {
+        //데이터 어딨어? => mysql
         String sql = "delete from userinfo where id = ?";
         Object[] params = new Object[]{id};
         jdbcTemplate.update(sql, params);
 
     }
+
+
 }
